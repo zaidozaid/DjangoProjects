@@ -15,7 +15,7 @@ from faker import Faker
 
 fakegen = Faker()
 
-def populate(N=2):
+def populate(N=3):
 
     for entry in range(N):
 
@@ -29,7 +29,7 @@ def populate(N=2):
 
 if __name__ == '__main__':
     print("Populating Script")
-    populate(N=3)
+    populate(N=30)
     print("populating compelete!")
 
 

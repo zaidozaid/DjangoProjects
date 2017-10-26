@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+ <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
+ </head>
+ <body>
+   <h1>Here are your users </h1>
+   {% if all_users %}
 
-<h1>Here are your users </h1>
+ <ol>
+     {% for pea in all_users %}
+     <li>User Info</li>
+      <ul>
 
-<ol>User Info</ol>
+      <li>First Name: {{pea.firstname}}</li>
+      <li>Last Name: {{pea.lastname}}</li>
+      <li>Email: {{pea.email}}</li>
+     </ul>
+{% endfor %}
+ </ol>
+   {% else %}
+
+    <p> No Users Found</p>
+  {% endif %}
 
 
-
-</body>
+ </body>
 </html>
