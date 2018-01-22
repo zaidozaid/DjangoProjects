@@ -4,13 +4,8 @@ from firstapp import forms
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello World")
+    return render(request, "index.html",)
 
-def help(request):
-
-    my_dict ={"insert_me":"this is text from views"}
-
-    return render(request,"firstapp/help.html",context=my_dict)
 
 
 def form_view(request):
@@ -50,5 +45,15 @@ def sign_up(request):
 
 
 
+def register(request):
+    restration = False
+    if request.method == "POST":
+        user_form = forms.UserForm(data=request.POST)
+        profile_form = forms.UserProfileInfor(data=request.POST)
+        if user_form.is_valid and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
 
+            
 
