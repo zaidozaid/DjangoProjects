@@ -50,7 +50,7 @@ def register(request):
     if request.method == "POST":
         user_form = forms.UserForm(data=request.POST)
         profile_form = forms.UserProfileInfor(data=request.POST)
-        if user_form.is_valid and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -73,7 +73,7 @@ def register(request):
         profile_form = forms.UserProfileInfor()
 
 
-        return render(request, "registration.html", {'user_form':user_form,'profile_form':profile_form,'registered':registered})
+    return render(request, "registration.html", {'user_form':user_form,'profile_form':profile_form,'registered':registered})
 
 
 
