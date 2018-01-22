@@ -46,7 +46,7 @@ def sign_up(request):
 
 
 def register(request):
-    restration = False
+    registered = False
     if request.method == "POST":
         user_form = forms.UserForm(data=request.POST)
         profile_form = forms.UserProfileInfor(data=request.POST)
@@ -55,5 +55,26 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
+            profile.save()
+
+            registered = True
+
+        else:
+            print(user_form.errors,profile_form.errors)
+
+    else:
+
+        user_form = forms.UserForm()
+        profile_form = forms.UserProfileInfor()
+
+
+        return render(request, "registration.html", {'user_form':user_form,'profile_form':profile_form,'registered':registered})
+
+
+
 
