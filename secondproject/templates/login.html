@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "basic.html" %}
 
-</body>
-</html>
+{% block body_block %}
+
+<div class="jumbotron">
+
+<h1>Please Login Here</h1>
+
+    <form action="{%url 'firstapp:user_login' %}" method="post"> {%csrf_token%}
+
+        <label for="username">Username:</label>
+        <input type="text" name="username" PLACEHOLDER="Enter Username">
+
+        <label for="password">Username:</label>
+        <input type="password" name="password" PLACEHOLDER="Enter Password">
+
+        <input type="submit" name="Submit">
+    </form>
+
+
+</div>
+
+{% endblock %}

@@ -1,7 +1,45 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from firstapp import forms
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse,HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
 # Create your views here.
+
+
+def user_login(request):
+
+    if request.method == "POST":
+        user = authenticate(username=request.POST.get("username"),password=request.POST.get("password"))
+
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                HttpResponse("Account Not Active!")
+
+        else:
+            print("Some one tried to login & failed")
+            return HttpResponse("Invaild Login Details")
+    else:
+        return render(request, "login.html",{})
+
+
+
+
+
+
+
+
+@login_required()
+def user_logout(request):
+
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
+
 
 def index(request):
     return render(request, "index.html",)

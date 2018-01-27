@@ -12,7 +12,16 @@
      <ul class="nav navbar-nav">
          <li><a class="navbar-brand" href="{%url 'index'%}">Home</a> </li>
          <li><a class="navbar-brand" href="{%url 'admin:index'%}">Admin</a> </li>
-         <li><a class="navbar-brand" href="{%url 'register'%}">Register</a> </li>
+         <li><a class="navbar-brand" href="{%url 'firstapp:register'%}">Register</a> </li>
+
+         {% if user.is_authenticated %}
+         <li><a class="navbar-brand" href="{%url 'user_logout'%}">Logout</a> </li>
+
+         {% else %}
+
+         <li><a class="navbar-brand" href="{%url 'firstapp:user_login'%}">Login</a> </li>
+
+         {% endif %}
 
 
 
