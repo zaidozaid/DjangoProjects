@@ -12,56 +12,31 @@ class Post(models.Model):
     title = models.CharField(max_length=234)
     text = models.TextField()
     create_date = models.DateField(default=timezone.now())
-    publish_date = models.DateField(null=True,blank=True)
+    published_date = models.DateField(null=True,blank=True)
 
 
 
     def publish(self):
 
-        self.publish_date= timezone.now()
+        self.published_date= timezone.now()
         self.save()
 
-    def approve_comments(self):
-        return self.comments.filter(approved_comment = True)
+    def approve_coments(self):
+        return self.comments.filter(approved_comments = True)
 
     def get_absolute_url(self):
-        return reverse("post_detail", kwargs={'pk':self.pk})
-
-
+        return  reverse("post_details",kwargs={'pk':self.pk})
 
     def __str__(self):
-
         return self.title
 
 
 
-
 class Comment(models.Model):
-    post = models.ForeignObject('blog.Post',related_name='comments')
-    author = models.CharField(max_length=254)
+    post = models.ForeignKey('blog.Post', related_name="comments")
+    author = models.CharField(max_length=234)
     text = models.TextField()
-    create_date = models.DateField(default=timezone.now())
-    approved_comment = models.BooleanField(default=False)
-
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
-
-
-
-    def get_absolute_url(self):
-        return reverse("post_list")
-
-
-    def __str__(self):
-        return self.text
-
-
-
-
-
-
+    create_date = models.DateField(default=timezone)
 
 
 
